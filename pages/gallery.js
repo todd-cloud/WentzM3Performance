@@ -1,21 +1,36 @@
-<form className="form" onSubmit={async e => {
-  e.preventDefault();
-  const fd = new FormData(e.currentTarget);
-  const data = Object.fromEntries(fd.entries());
+import fs from 'fs';
+import path from 'path';
 
-  await fetch('/api/gallery', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
+export default function handler(req, res) {
+  const file = path.join(process.cwd(), 'data/gallery.json');
 
-  e.currentTarget.reset();
-  const updated = await fetch('/api/gallery').then(res => res.json());
-  setGallery(updated);
-}}>
-  <input className="input" name="name" placeholder="Your Name" required />
-  <input className="input" name="car" placeholder="Your Car" required />
-  <input className="input" name="imageUrl" placeholder="Image URL" required />
-  <button className="btn" type="submit">Submit</button>
-</form>
+  if (req.method === 'POST') {
+    try {
+      const gallery = JSON.parse(fs.readFileSync(file, 'utf8'));
+      const item = req.body;
 
+      if (!item?.name || !item?.car || !item?.imageUrl) {
+        return res.status(400).json({ error: 'Missing fields.' });
+      }
+
+      gallery.unshift({ ...item, createdAt: new Date().toISOString() });
+      fs.writeFileSync(file, JSON.stringify(gallery, null, 2));
+
+      // ✅ Fixed line
+      return res.status(200).json({ status: 'ok' });
+    } catch (error) {
+      console.error('Error saving gallery:', error);
+      return res.status(500).json({ error: 'Failed to save submission.' });
+    }
+  } else if (req.method === 'GET') {
+    try {
+      const gallery = JSON.parse(fs.readFileSync(file, 'utf8'));
+      return res.status(200).json(gallery);
+    } catch (error) {
+      console.error('Error loading gallery:', error);
+      return res.status(500).json({ error: 'Failed to load gallery.' });
+    }
+  } else {
+    return res.status(405).json({ error: 'Method not allowed.' });
+  }
+}
