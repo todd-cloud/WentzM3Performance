@@ -1,0 +1,77 @@
+:root {
+  --accent1: #0033a0; /* BMW blue */
+  --accent2: #cc0000; /* BMW red */
+  --accent3: #0066b3; /* BMW light blue */
+  --muted: #7c8696;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  background: #f9f9f9;
+  color: #222;
+}
+
+header {
+  background: #fff;
+  border-bottom: 2px solid var(--accent1);
+  padding: 10px 0;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links a {
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--accent1);
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent3), var(--accent2));
+  color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 14px;
+  background: var(--accent1);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn.secondary {
+  background
