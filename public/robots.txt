@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wentzm3performance.vercel.app/sitemap.xml
