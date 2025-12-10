@@ -16,6 +16,7 @@ export default function handler(req, res) {
       gallery.unshift({ ...item, createdAt: new Date().toISOString() });
       fs.writeFileSync(file, JSON.stringify(gallery, null, 2));
 
+      // ✅ Fixed line
       return res.status(200).json({ status: 'ok' });
     } catch (error) {
       console.error('Error saving gallery:', error);
@@ -33,4 +34,3 @@ export default function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed.' });
   }
 }
-
