@@ -1,36 +1,22 @@
-import fs from 'fs';
-import path from 'path';
+<form className="form" onSubmit={async e => {
+  e.preventDefault();
+  const fd = new FormData(e.currentTarget);
+  const data = Object.fromEntries(fd.entries());
 
-export default function handler(req, res) {
-  const file = path.join(process.cwd(), 'data/meets.json');
+  await fetch('/api/meets', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
 
-  if (req.method === 'POST') {
-    try {
-      const meets = JSON.parse(fs.readFileSync(file, 'utf8'));
-      const item = req.body;
-
-      if (!item?.name || !item?.email || !item?.city || !item?.variant) {
-        return res.status(400).json({ error: 'Missing fields.' });
-      }
-
-      meets.unshift({ ...item, createdAt: new Date().toISOString() });
-      fs.writeFileSync(file, JSON.stringify(meets, null, 2));
-
-      return res.status(200).json({ status: 'ok' });
-    } catch (error) {
-      console.error('Error saving meet:', error);
-      return res.status(500).json({ error: 'Failed to save submission.' });
-    }
-  } else if (req.method === 'GET') {
-    try {
-      const meets = JSON.parse(fs.readFileSync(file, 'utf8'));
-      return res.status(200).json(meets);
-    } catch (error) {
-      console.error('Error loading meets:', error);
-      return res.status(500).json({ error: 'Failed to load meets.' });
-    }
-  } else {
-    return res.status(405).json({ error: 'Method not allowed.' });
-  }
-}
+  e.currentTarget.reset();
+  const updated = await fetch('/api/meets').then(res => res.json());
+  setMeets(updated);
+}}>
+  <input className="input" name="name" placeholder="Your Name" required />
+  <input className="input" name="email" placeholder="Email" required />
+  <input className="input" name="city" placeholder="City" required />
+  <input className="input" name="variant" placeholder="M3 Variant" required />
+  <button className="btn secondary" type="submit">Sign Up</button>
+</form>
 
