@@ -1,36 +1,26 @@
+import { useEffect, useState } from 'react';
 
-import path from 'path';
+export default function GalleryPage() {
+  const [gallery, setGallery] = useState([]);
 
-export default function handler(req, res) {
-  const file = path.join(process.cwd(), 'data/gallery.json');
+  useEffect(() => {
+    fetch('/api/gallery')
+      .then(res => res.json())
+      .then(setGallery);
+  }, []);
 
-  if (req.method === 'POST') {
-    try {
-      const gallery = JSON.parse(fs.readFileSync(file, 'utf8'));
-      const item = req.body;
-
-      if (!item?.name || !item?.car || !item?.imageUrl) {
-        return res.status(400).json({ error: 'Missing fields.' });
-      }
-
-      gallery.unshift({ ...item, createdAt: new Date().toISOString() });
-      fs.writeFileSync(file, JSON.stringify(gallery, null, 2));
-
-      // ✅ Fixed line
-      return res.status(200).json({ status: 'ok' });
-    } catch (error) {
-      console.error('Error saving gallery:', error);
-      return res.status(500).json({ error: 'Failed to save submission.' });
-    }
-  } else if (req.method === 'GET') {
-    try {
-      const gallery = JSON.parse(fs.readFileSync(file, 'utf8'));
-      return res.status(200).json(gallery);
-    } catch (error) {
-      console.error('Error loading gallery:', error);
-      return res.status(500).json({ error: 'Failed to load gallery.' });
-    }
-  } else {
-    return res.status(405).json({ error: 'Method not allowed.' });
-  }
+  return (
+    <div className="container">
+      <h1>Community Gallery</h1>
+      <div className="grid">
+        {gallery.map((g, i) => (
+          <div key={i} className="card">
+            <img src={g.imageUrl} alt={g.car} />
+            <h3>{g.name}</h3>
+            <p>{g.car}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
