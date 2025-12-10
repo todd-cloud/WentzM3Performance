@@ -1,77 +1,80 @@
-:root {
-  --accent1: #0033a0; /* BMW blue */
-  --accent2: #cc0000; /* BMW red */
-  --accent3: #0066b3; /* BMW light blue */
-  --muted: #7c8696;
-}
-
+/* Global reset */
 body {
-  font-family: system-ui, sans-serif;
   margin: 0;
-  background: #f9f9f9;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
   color: #222;
 }
 
-header {
-  background: #fff;
-  border-bottom: 2px solid var(--accent1);
-  padding: 10px 0;
-}
-
+/* Layout */
 .container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 16px;
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-links a {
-  margin: 0 10px;
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--accent1);
+  padding: 2rem;
 }
 
 .hero {
-  text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(90deg, var(--accent1), var(--accent3), var(--accent2));
+  background: linear-gradient(90deg, #003366, #0066cc);
   color: #fff;
+  padding: 3rem;
+  text-align: center;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 .card {
   background: #fff;
-  border-radius: 6px;
+  border-radius: 8px;
+  padding: 1rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  overflow: hidden;
 }
 
 .card img {
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  border-radius: 6px;
 }
 
+/* Forms */
+.form {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Buttons */
 .btn {
   display: inline-block;
-  padding: 8px 14px;
-  background: var(--accent1);
-  color: #fff;
+  padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 4px;
-  text-decoration: none;
+  background: #0066cc;
+  color: #fff;
+  font-weight: bold;
   cursor: pointer;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #004c99;
 }
 
 .btn.secondary {
-  background
+  background: #333;   /* ✅ fixed line */
+  color: #fff;
+}
+
+.btn.secondary:hover {
+  background: #111;
+}
