@@ -1,0 +1,36 @@
+[
+  {
+    "id": "p001",
+    "title": "CSL Style Carbon Fiber Front Bumper",
+    "brand": "Wentz Designs",
+    "gen": "e46",
+    "cat": "aero",
+    "price": 1299,
+    "img": "/placeholder.jpg",
+    "link": "https://example.com/products/csl-front-bumper",
+    "specs": [
+      "High-quality carbon fiber construction",
+      "Fits BMW E46 M3",
+      "Lightweight and track-tested"
+    ]
+  },
+  {
+    "id": "p002",
+    "title": "Performance Coilover Suspension Kit",
+    "brand": "KW",
+    "gen": "e46",
+    "cat": "suspension",
+    "price": 1899,
+    "img": "/placeholder.jpg",
+    "link": "https://example.com/products/coilover-kit",
+    "specs": [
+      "Height adjustable",
+      "Improved handling and ride quality",
+      "Designed for street and track use"
+    ]
+  },
+  {
+    "id": "p003",
+    "title": "Forged Alloy Wheels Set (18\")",
+    "brand": "BBS",
+    "gen":
